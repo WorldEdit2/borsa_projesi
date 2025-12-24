@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  # Servis 1: API (Kullanıcıya kapalı, sadece içeriden erişilir)
+  market-service:
+    build: ./market_api
+    container_name: market-service
+    ports:
+      - "5000:5000"
+
+  # Servis 2: UI (Kullanıcıya açık)
+  dashboard-service:
+    build: ./dashboard_ui
+    container_name: dashboard-service
+    ports:
+      - "5001:5001"
+    depends_on:
+      - market-service # Önce API başlasın, sonra bu başlasın
